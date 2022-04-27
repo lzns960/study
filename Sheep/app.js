@@ -7,6 +7,8 @@ import {
 } from './sheep-controller.js';
 
 class App {
+
+  //캔버스 추가 후 바디에 추가 
   constructor() {
     this.canvas = document.createElement('canvas');
     this.ctx = this.canvas.getContext("2d");
@@ -21,6 +23,7 @@ class App {
 
     this.sheepController = new SheepController();
 
+    // 스크린 사이즈를 가져오기 위해 리사이즈 이벤트를 걸어줌 
     window.addEventListener('resize', this.resize.bind(this),false);
     this.resize();
 
@@ -30,6 +33,7 @@ class App {
     this.stageWidth = document.body.clientWidth;
     this.stageHeight = document.body.clientHeight;
 
+    //캔버스 사이즈 2배
     this.canvas.width = this.stageWidth * 2;
     this.canvas.height = this.stageHeight * 2; 
     this.ctx.scale(2, 2);
@@ -40,9 +44,11 @@ class App {
 
     this.sheepController.resize(this.stageWidth, this.stageHeight);
   }
-  anmate(t) {
+  animate(t) {
     requestAnimationFrame(this.animate.bind(this));
     
+    //캔버스를 깨끗하게 지워지는 코드 
+
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
     let dots;
@@ -53,6 +59,7 @@ class App {
     this.sheepController.draw(this.ctx, t, dots);
   }
 }
+
 
 window.onload = () => {
   new App();
