@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Ajax</title>
+
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+  
+        <!-- <div class="col-sm-4">
+          <img src="https://via.placeholder.com/600" class="w-100">
+          <h5>Card title</h5>
+          <p>가격 : 70000</p>
+        </div> -->
+  
+    </div>
+  </div> 
+  <div class="container my-3">
+    <button class="btn btn-danger" id = "sort">다나가순 정렬</button>
+  </div>
+  <div class="container my-3">
+    <button class="btn btn-danger" id = "filter">6만원이하 필터하기</button>
+  </div>
+  <div class="container my-3">
+    <button class="btn btn-danger" id = "price">가격순정렬</button>
+  </div>
+  <div class="container">
+    <button class="btn btn-danger" id = "more">더보기</button>
+  </div>
+  <script>
+    var products = [
+      { id : 0, price : 70000, title : 'Blossom Dress' },
+      { id : 1, price : 50000, title : 'Springfield Shirt' },
+      { id : 2, price : 60000, title : 'Black Monastery' }
+    ];
+
+
+    // 6만원 이하 상품보기 기능
+    $('#filter').click(function(){
+      var newProduct = products.filter(function(a){
+        return a.price <= 60000
+      });
+
+      $('.row').html('');//카드 3개있던 div의 내용 제거 
+      
+      // newproduct 수만큼 카드생성
+      newProduct.forEach((a,i) => {
+      var card = `<div class="col-sm-4">
+          <img src="https://rdironworks.com/wp-content/uploads/2017/12/600x600.png" class="w-100">
+          <h5>${newProduct[i].title}</h5> 
+          <p>가격 : ${newProduct[i].price}</p>
+        </div> `;
+      $('.row').append(card);
+    })
+
+    });
+
+
+    //버튼 누르면 products 안의 데이터를 가격순 정렬
+    $('#price').click(function(){
+      products.sort(function(a, b){
+        return a.price - b.price
+      })
+
+      $('.row').html('');//카드 3개있던 div의 내용 제거 
+      
+      // product 수만큼 카드생성
+      products.forEach((data,i) => {
+      var card = `<div class="col-sm-4">
+          <img src="https://rdironworks.com/wp-content/uploads/2017/12/600x600.png" class="w-100">
+          <h5>${data.title}</h5> 
+          <p>가격 : ${products[i].price}</p>
+        </div> `;
+    $('.row').append(card);
+    });
+    })
+
+    //다나가순 정렬 
+  $('#sort').click(function(){
+
+    products.sort(function(a, b){
+      if (a.title < b.title) {
+        return 1
+      } else {
+      return -1
+      }
+});
+$('.row').html('');//카드 3개있던 div의 내용 제거 
+      
+      // product 수만큼 카드생성
+      products.forEach((data,i) => {
+      var card = `<div class="col-sm-4">
+          <img src="https://rdironworks.com/wp-content/uploads/2017/12/600x600.png" class="w-100">
+          <h5>${data.title}</h5> 
+          <p>가격 : ${products[i].price}</p>
+        </div> `;
+    $('.row').append(card);
+    });
+  })
+  
+
+/*
+
+    // 문자 역순 정렬
+    var array = ['가', '다', '나'];
+
+    array.sort(function(a, b){
+      if (a < b) {
+        return 1
+      } else if (a = b) {
+        return 0 //- 같은 글자일 경우 return 0을 하면 아무 조치를 취하지않는다. 
+      } else {
+        return -1
+      }
+    })
+
+    // array 정렬하는 법
+
+    var array = [7,9,3,5,2,40]
+    array.sort(function(a,b){
+      return a - b
+    });
+
+    //array 자료 원하는 것만 필터하려면 .filter()
+    var array = [7,9,3,5,2,40]
+    var newArray = array.filter(function(a){
+      return a < 4
+    });
+    //filter()의 결과는 변수에 저장해서 써야한다. 
+
+    // array 자료 전부를 똑같이 변형시키려면 .map()
+    var array = [7,9,3,5,2,40]
+    var newArray = array.map(function(a){
+      return a * 4
+    });
+    */
+    products.forEach((data,i) => {
+      var card = `<div class="col-sm-4">
+          <img src="https://rdironworks.com/wp-content/uploads/2017/12/600x600.png" class="w-100">
+          <h5>${data.title}</h5> 
+          <p>가격 : ${products[i].price}</p>
+        </div> `;
+    $('.row').append(card);
+    });
+
+    //더보기 버튼 누르면 상품 3개 가져와서 출력하기
+    $('#more').click(function(){
+      $.get('https://codingapple1.github.io/js/more1.json')
+      .done((data)=> {
+        console.log(data);
+
+        // 가져온 데이터로 카드 3개 더 만들기 
+        data.forEach((a,i)=> {
+          var card = `<div class="col-sm-4">
+          <img src="https://rdironworks.com/wp-content/uploads/2017/12/600x600.png" class="w-100">
+          <h5>${data[i].title}</h5> 
+          <p>가격 : ${data[i].price}</p>
+        </div> `;
+        $('.row').append(card);
+        })
+    });
+  });
+  // 더보기 2회 누르면 7,8,9 번째 상품 더 가져온 후 버튼 안보이게 하기 
+
+    /*
+    //ajax로 GET 요청하는 법 
+    $.get('https://codingapple1.github.io/hello.text')
+    //GET 성공시 실행되는 함수는 .done
+    .done(function(data){//data파라미터: 받아온 데이터가 들어있다. 
+      console.log('data');
+    })
+
+    //ajax로 POST 요청하는 법 
+    $.post('https://codingapple1.github.io/hello.text', {name: 'kim'})
+      .done(function(data){
+      console.log('data');
+    })
+    .fail(function(){//ajax실패시 특정코드 실행하고 싶으면
+      console.log('실패함')
+    })
+    */
+    /*
+    $.get('https://codingapple1.github.io/price.json')
+    .done(function(data){
+      console.log(data.price);
+    }).fail(function(){
+      console.log('실패함');
+    })
+    */
+
+  </script>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
