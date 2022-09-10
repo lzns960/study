@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            position:relative;
+            background-color: black;
+            /* cursor: none; */
+            /* margin: 0; */
+            overflow: hidden;
+        }
+        h1 {
+            color: #fff;
+        }
+        
+        .cursor_item {
+            position:fixed;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            top:0;
+            left:0;
+            margin: -50px 0 0  -50px;
+            transition: all 500ms cubic-bezier(0.000 , 0.000, 0.245, 1.000);
+        }
+        .human {
+            position: absolute;
+            width: 300px;
+            left: calc(50% - 150px); /* 띄어쓰기 안하면 에러난다. */
+            z-index:100;
+        }
+        /* button {
+            font-size: 40px;
+            font-weight: bold;
+            background: #fff;
+            color: red;
+            padding: 30px 80px;
+            margin: 50px;
+            cursor: pointer;
+            transition: all .5s ease;
+        }
+        button:hover {
+            background: red;
+            color: #fff;
+        } */
+
+        /* BG */
+
+    </style>
+    <script>
+        let human;
+        let h1;
+        let bg;
+
+        let x = 0;
+        let y = 0;
+        let mx = 0; 
+        let my = 0;
+        let speed = 0.009;
+
+        window.onload = function(){
+            h1 = document.getElementsByTagName("h1")[0];
+            human = document.getElementsByClassName("human")[0];
+            bg = document.getElementsByClassName("bg")[0];
+
+            window.addEventListener("mousemove", mousefunc, false);
+
+            function mousefunc(e) {
+                x = (e.clientX-window.innerWidth /2);
+                y =(e.clientY-window.innerWidth /2);
+                // cursor_item.style.transform = "translate("+ x +"px," + y +"px)";
+
+                //console.log(e.clientX, e.clientY);
+            }
+
+        loop();
+        
+        }
+
+        // let i = 0;
+        function loop(){
+        //     // console.log(i += 1);
+        //     // console.log(x, y);
+
+            mx += (x- mx) * speed;
+            my += (x- my) * speed;
+            
+            
+            h1.innerText = "x:" + x + "mx: " + mx;
+            human.style.transform = "translate("+-(mx/6) +"px," + -(my/6) +"px)"; // mx와 my에 -를 주면 반대로 움직인다. 
+            bg.style.transform = "translate("+ (mx/6) +"px," + (my/6) +"px)";
+            window.requestAnimationFrame(loop);
+        }
+        
+    </script>
+</head>
+<body>
+    <h1>test</h1>
+    <!-- <div class="cursor_item"></div> -->
+    <!-- <button type = "button">START</button> -->
+    <img src="./layer-7.png" class = "human" alt="여자 모델">
+    <img src="./layer-1.jpg" class= "bg" alt="벽">
+</body>
+</html>
