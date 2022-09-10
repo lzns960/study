@@ -1,0 +1,5 @@
+/* body에 클래스 줘서 dark모드 만들기 */
+.dark {
+    background-color: black;
+    color: white;
+}

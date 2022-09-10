@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        console.log(vat(5555));
+
+        function vat(a) {
+            var num = (a * 1.1).toFixed(1);
+            return parseFloat(num)
+        }   
+        vat(20000);
+
+
+        //Q1. 함수에 분과초를 차례로 파라미터로 입력하면 ms 단위로 바꿔 뱉어주는 함수
+        //1초 == 1000ms
+
+        function time(a, b){
+            var result = (a * 60 + b) * 1000;
+            return result
+        }
+
+        console.log(time(1, 30));
+        console.log(time(2, 10));
+
+        //가격을 파라미터로 입력하면 10% 할인가를 뱉는 함수
+        //첫 구매여부 ture/flase로 둘째파라미터에 입력해서 첫 구매가 맞을경우 추가로 1.5달러 할인 
+    
+        function price(a, b){
+            var result = a * 0.1;
+            if (b == true) {
+                result = result - 1.5;
+            }
+            return parseFloat(result.toFixed(2))
+        }
+
+        console.log(price(70, false));
+        console.log(price(10, true));
+    </script>
+</body>
+</html>
