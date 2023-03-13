@@ -155,3 +155,44 @@ let 회원가입정보2: NewUser = {
   adult: true,
 };
 console.log(회원가입정보2);
+// TS part1 8 강의중간 퀴즈
+function 가위바위보(a: "가위" | "바위" | "보"): ("가위" | "바위" | "보")[] {
+  return ["가위", "보"];
+}
+// Ts part1 9 숙제
+type Member = {
+  name: string;
+  age: number;
+  plusOne: (x: number) => number;
+  changeName: () => void;
+};
+let 회원정보: Member = {
+  name: "kim",
+  age: 30,
+  plusOne: (x) => {
+    return x + 1;
+  },
+  changeName: () => {
+    console.log("안녕");
+  },
+};
+console.log(회원정보.plusOne(1));
+회원정보.changeName();
+
+type CutType = (x: string) => string;
+let cutZero: CutType = function (x) {
+  let result = x.replace(/^0/, "");
+  return result;
+};
+
+function removeDash(x: string): number {
+  let result = x.replace(/-/g, "");
+  return parseInt(result);
+}
+
+function 만들함수(a, func1, func2) {
+  let result = func1(a);
+  let result2 = func2(result);
+  console.log(result2);
+}
+만들함수("010-1111-2222", cutZero, removeDash);
