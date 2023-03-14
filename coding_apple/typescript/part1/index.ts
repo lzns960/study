@@ -196,3 +196,63 @@ function 만들함수(a, func1, func2) {
   console.log(result2);
 }
 만들함수("010-1111-2222", cutZero, removeDash);
+// TS part1 10 강의 숙제
+let 링크 = document.querySelector(".link");
+if (링크 instanceof HTMLAnchorElement) {
+  링크.href = "https://kakao.com";
+}
+
+let 이미지 = document.querySelector("#image");
+if (이미지 instanceof HTMLImageElement) {
+  이미지.src = "change.jpg";
+}
+
+let 링크들 = document.querySelectorAll(".naver");
+링크들.forEach((a) => {
+  if (a instanceof HTMLAnchorElement) {
+    a.href = "https://kakao.com";
+  }
+});
+
+// TS part1 13 숙제
+class Car {
+  model: string;
+  price: number;
+  constructor(a: string, b: number) {
+    this.model = a;
+    this.price = b;
+  }
+
+  tax(): number {
+    return this.price * 0.1;
+  }
+}
+
+let car1 = new Car("소나타", 3000);
+console.log(car1); //콘솔창 출력결과는 { model : '소나타', price : 3000 }
+console.log(car1.tax()); //콘솔창 출력결과는 300
+
+class Word {
+  num;
+  str;
+
+  constructor(...param) {
+    let 숫자들: number[] = [];
+    let 문자들: string[] = [];
+
+    param.forEach((i) => {
+      if (typeof i === "string") {
+        문자들.push(i);
+      } else {
+        숫자들.push(i);
+      }
+    });
+
+    this.num = 숫자들;
+    this.str = 문자들;
+  }
+}
+
+let obj = new Word("kim", 3, 5, "park");
+console.log(obj.num); //[3,5]
+console.log(obj.str); //['kim', 'park']

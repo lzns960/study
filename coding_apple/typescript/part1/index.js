@@ -135,3 +135,56 @@ function 만들함수(a, func1, func2) {
     console.log(result2);
 }
 만들함수("010-1111-2222", cutZero, removeDash);
+// TS part1 10 강의 숙제
+var 링크 = document.querySelector(".link");
+if (링크 instanceof HTMLAnchorElement) {
+    링크.href = "https://kakao.com";
+}
+var 이미지 = document.querySelector("#image");
+if (이미지 instanceof HTMLImageElement) {
+    이미지.src = "change.jpg";
+}
+var 링크들 = document.querySelectorAll(".naver");
+링크들.forEach(function (a) {
+    if (a instanceof HTMLAnchorElement) {
+        a.href = "https://kakao.com";
+    }
+});
+// TS part1 13 숙제
+var Car = /** @class */ (function () {
+    function Car(a, b) {
+        this.model = a;
+        this.price = b;
+    }
+    Car.prototype.tax = function () {
+        return this.price * 0.1;
+    };
+    return Car;
+}());
+var car1 = new Car("소나타", 3000);
+console.log(car1); //콘솔창 출력결과는 { model : '소나타', price : 3000 }
+console.log(car1.tax()); //콘솔창 출력결과는 300
+var Word = /** @class */ (function () {
+    function Word() {
+        var param = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            param[_i] = arguments[_i];
+        }
+        var 숫자들 = [];
+        var 문자들 = [];
+        param.forEach(function (i) {
+            if (typeof i === "string") {
+                문자들.push(i);
+            }
+            else {
+                숫자들.push(i);
+            }
+        });
+        this.num = 숫자들;
+        this.str = 문자들;
+    }
+    return Word;
+}());
+var obj = new Word("kim", 3, 5, "park");
+console.log(obj.num); //[3,5]
+console.log(obj.str); //['kim', 'park']
